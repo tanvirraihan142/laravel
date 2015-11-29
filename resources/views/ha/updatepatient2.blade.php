@@ -95,7 +95,7 @@
    
    <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
-         <button type="submit" class="btn btn-default">Search Patient</button>
+         <button type="submit" class="btn btn-default">Update Patient's History</button>
       </div>
    </div>
 </form> 

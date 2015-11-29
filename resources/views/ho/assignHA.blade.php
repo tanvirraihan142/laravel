@@ -1,0 +1,53 @@
+@extends('layout.ho')
+
+@section('content')
+                <div class="col-lg-12 text-center">
+                
+                   <div class="container">
+                      <div class="row">
+                          <div class="col-sm-1 col-md-6 col-md-offset-3">
+                              <h2>
+        Assign Health Assistant
+    </h2>
+     <h2 class = "brand-after">
+                                <small> Select Center that you are assigned to </small>
+                              </h2>
+    
+<hr class="tagline-divider">
+<p>
+    
+</p>
+@if ($temp!=null)
+
+
+                       
+<div class="table-responsive">
+  <table class="table">
+    <tr style="color:White;background-color:#507CD1;font-weight:bold;">
+       <th scope="col">&nbsp;</th><th scope="col">Center Name</th><th scope="col">Location</th><th scope="col">District</th><th scope="col">Contact No</br>
+  @foreach ($temp as $line)
+       <tr>
+           <td><a href="assignHA/{{ $line->cc_no }}" style="color:blue">Select</a></td><td>{{ $line->center_name}}</td><td>{{ $line->location}}</td><td>{{ $line->district}}</td><td>{{ $line->contact_no }}</td>
+
+       </tr>              
+  @endforeach
+</table>
+<hr class="tagline-divider">
+<p>
+</p>
+@endif
+
+@if ($temp==null)
+<h2>
+        You are not assigned to any centers
+    </h2>
+
+@endif
+
+ </div>
+                          </div>
+                          
+                      </div>
+                    </div>
+                </div>
+                @endsection

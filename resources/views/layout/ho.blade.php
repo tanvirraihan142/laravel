@@ -16,12 +16,13 @@
     <link href="{{ URL::asset('css/bootstrap.css') }}" rel="stylesheet">
 
     <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ URL::asset('css/datepicker.css') }}">
 	
     <link href="{{ URL::asset('css/business-casual.css') }}" rel="stylesheet">
 
     <!-- Fonts -->
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+    <link href="{{ URL::asset('css/fonts/font1.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ URL::asset('css/fonts/font2.css') }}" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -61,14 +62,14 @@
                         <a href="{{ URL::to('profile') }}">Profile</a>
                     </li>
 
-                     <li>
-                        <a href="">Assign</br>Health</br>Assistant</a>
+                     <li class="{{ (Request::is('/assignHA') ? 'active' : '') }}">
+                        <a href="{{ URL::to('/assignHA') }}">Assign</br>Health</br>Assistant</a>
                     </li>
-                    <li>
-                        <a href="">Add</br>Center</a>
+                    <li class="{{ (Request::is('/addCenter') ? 'active' : '') }}">
+                        <a href="{{ URL::to('/addCenter') }}">Add</br>Center</a>
                     </li>
-                    <li>
-                        <a href="">Add</br>Vaccine</a>
+                    <li class="{{ (Request::is('/addVaccine') ? 'active' : '') }}">
+                        <a href="{{ URL::to('/addVaccine') }}">Add</br>Vaccine</a>
                     </li>
                     <li>
                         <a href="">Update</br>Vaccine</a>
@@ -114,6 +115,20 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
+     <script src="{{ URL::asset('js/bootstrap-datepicker.js') }}"></script>
+    <script type="text/javascript">
+            // When the document is ready
+            $(document).ready(function () {
+                
+                $('#example1').datepicker({
+                    format: "dd/mm/yyyy"
+                });
+                $('#example2').datepicker({
+                    format: "dd/mm/yyyy"
+                });   
+            
+            });
+        </script>
 
 </body>
 

@@ -18,10 +18,11 @@
     <!-- Custom CSS -->
 	
     <link href="{{ URL::asset('css/business-casual.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ URL::asset('css/datepicker.css') }}">
 
     <!-- Fonts -->
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+    <link href="{{ URL::asset('css/fonts/font1.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ URL::asset('css/fonts/font2.css') }}" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -61,17 +62,17 @@
                         <a href="{{ URL::to('profile') }}">Profile</a>
                     </li>
 
-                     <li>
-                        <a href=" ">Create</br>Campaign</a>
+                     <li class="{{ (Request::is('/createCampaign') ? 'active' : '') }}">
+                        <a href="{{ URL::to('/createCampaign') }}">Create</br>Campaign</a>
                     </li>
-                    <li>
-                        <a href=" ">Set</br>Centers</a>
+                    <li "{{ (Request::is('/setCenter') ? 'active' : '') }}">
+                        <a href="{{ URL::to('/setCenter') }}">Set</br>Centers</a>
                     </li>
-                     <li>
-                        <a href=" ">Assign</br>Health</br>Officer</a>
+                     <li "{{ (Request::is('/assignHO') ? 'active' : '') }}">
+                        <a href="{{ URL::to('/assignHO') }}">Assign</br>Health</br>Officer</a>
                     </li>
-                    <li>
-                        <a href=" ">Send</br>Notifications</a>
+                    <li "{{ (Request::is('/notify') ? 'active' : '') }}">
+                        <a href="{{ URL::to('/notify') }}">Send</br>Notifications</a>
                     </li>
                      <li class="{{ (Request::is('/logout') ? 'active' : '') }}">
                         <a href="{{ URL::to('logout') }}">Logout</a>
@@ -113,6 +114,17 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
+     <script src="{{ URL::asset('js/bootstrap-datepicker.js') }}"></script>
+    <script type="text/javascript">
+            // When the document is ready
+            $(document).ready(function () {
+                
+                $('#example1').datepicker({
+                    format: "dd/mm/yyyy"
+                });  
+            
+            });
+        </script>
 
 </body>
 
