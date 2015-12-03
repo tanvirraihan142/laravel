@@ -68,11 +68,11 @@
                     <li class="{{ (Request::is('/updatepatient') ? 'active' : '') }}">
                         <a href="{{ URL::to('/updatepatient') }}">Add</br>Patient's</br>History</a>
                     </li>
-                    <li>
-                        <a href="">Edit</br>Patient's</br>History</a>
+                    <li class="{{ (Request::is('/editpatient') ? 'active' : '') }}">
+                        <a href="{{ URL::to('/editpatient') }}">Edit</br>Patient's</br>History</a>
                     </li>
-                    <li>
-                        <a href="">Update</br>Vaccine</a>
+                    <li "{{ (Request::is('/updatevaccine') ? 'active' : '') }}">
+                        <a href="{{ URL::to('/updatevaccine') }}">Update</br>Vaccine</a>
                     </li>
                     <li class="{{ (Request::is('/logout') ? 'active' : '') }}">
                         <a href="{{ URL::to('logout') }}">Logout</a>

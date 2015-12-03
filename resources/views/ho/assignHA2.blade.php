@@ -27,8 +27,9 @@
   </table>
 <hr class="tagline-divider">
  <h2 class = "brand-after">
-                                <small> Selected Centers </small>
+                                <small> Selected Health Assistants </small>
                               </h2>
+                              <hr class="tagline-divider">
   <table class="table">
     <tr style="color:White;background-color:#507CD1;font-weight:bold;">
       <th scope="col">&nbsp;</th><th scope="col">NAME OF HEALTH ASSISTANS</th>
@@ -42,9 +43,14 @@
   @endif
 
   </table>
-  <div class="col-sm-offset-1 col-sm-10">
-         <button type="submit" class="btn btn-default">Confirm</button>
+   <form action="/assignHA2" method="POST" class="form-horizontal" role="form" >
+  {!! csrf_field() !!}
+  <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-8">
+         <button type="submit" class="btn btn-default">Confirm Health Assistants</button>
       </div>
+   </div>
+</form>
                           </div>
                       </div>
                     </div>

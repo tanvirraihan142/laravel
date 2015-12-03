@@ -17,6 +17,7 @@ class CreateNotificationsTable extends Migration
             $table->increments('noti_no');
             $table->integer('campaign_no');
             $table->string('msg',430);
+            $table->dateTime('msg_date');
         });
     }
 

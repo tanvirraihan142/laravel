@@ -71,8 +71,8 @@
                     <li class="{{ (Request::is('/addVaccine') ? 'active' : '') }}">
                         <a href="{{ URL::to('/addVaccine') }}">Add</br>Vaccine</a>
                     </li>
-                    <li>
-                        <a href="">Update</br>Vaccine</a>
+                    <li class="{{ (Request::is('/updateVaccine') ? 'active' : '') }}">
+                        <a href="{{ URL::to('/updateVaccine') }}">Update</br>Vaccine</a>
                     </li>
                      <li class="{{ (Request::is('/logout') ? 'active' : '') }}">
                         <a href="{{ URL::to('logout') }}">Logout</a>

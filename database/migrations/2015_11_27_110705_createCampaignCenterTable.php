@@ -29,7 +29,7 @@ class CreateCampaignCenterTable extends Migration
     public function down()
     {
         //
-        Schema::drop('campaigncenters');
+       Schema::drop('campaigncenters');
 
     }
 }

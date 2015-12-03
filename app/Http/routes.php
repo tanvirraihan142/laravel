@@ -16,8 +16,8 @@ use Illuminate\Http\Request;
 
 
 
-/*When not logged in*/
 
+/*When not logged in*/
 Route::get('/', 'SignUpController@main');
 
 Route::get('/about', function () {
@@ -29,14 +29,17 @@ Route::get('/signup', function () {
 });
 
 Route::get('/profile','SignUpController@getProfile');
-
 Route::post('/signup', 'SignUpController@store');
-
 Route::get('/login','SignUpController@getLogin');
-
+Route::get('/login2','SignUpController@getLogin2');
 Route::post('/login','SignUpController@log');
-
+Route::post('/login2','SignUpController@log2');
 Route::get('/logout', 'SignUpController@getLogout');
+
+Route::get('/editProfile','SignUpController@editProfile');
+Route::post('/editProfile','SignUpController@editProfile2');
+Route::get('/changePassword','SignUpController@changePassword');
+Route::post('/changePassword','SignUpController@changePassword2');
 
 /* Routes for the functions for the Health Assistant  */
 
@@ -46,8 +49,22 @@ Route::get('/updatepatient', 'HAController@getUpdatePatient');
 Route::post('/updatepatient', 'HAController@postUpdatePatient');
 Route::get('/updatepatient2', 'HAController@getUpdatePatient2');
 Route::post('/updatepatient2', 'HAController@postUpdatePatient2');
+Route::get('/updatevaccine', 'HAController@updatevaccine');
+Route::get('/updatevaccine/{vaccineno}', 'HAController@updatevaccine2');
+Route::get('/updatevaccine2', 'HAController@updatevaccine3');
+Route::post('/updatevaccine2', 'HAController@updatevaccine4');
+
+Route::get('/editpatient', 'HAController@editPatient');
+Route::post('/editpatient', 'HAController@editPatient2');
+Route::get('/editpatient2', 'HAController@editPatient3');
+Route::get('/editpatient2/{recordno}', 'HAController@editPatient4');
+Route::get('/editpatient3', 'HAController@editPatient5');
+Route::post('/editpatient3', 'HAController@editPatient6');
+
+
 
 /* Routes for the functions for the Chief Health Officer  */
+
 Route::get('/createCampaign', 'CHOController@getCreateCampaign');
 Route::post('/createCampaign', 'CHOController@postCreateCampaign');
 
@@ -84,6 +101,14 @@ Route::get('/assignHA/{cc}', 'HOController@getAssignHa2');
 Route::get('/assignHA2', 'HOController@getAssignHa3');
 Route::get('/assignHA2/add/{empno}', 'HOController@getAssignHa4');
 Route::get('/assignHA2/del/{empno}', 'HOController@getAssignHa5');
+Route::post('/assignHA2', 'HOController@getAssignHa6');
 
+Route::get('/updateVaccine', 'HOController@updateVaccine');
+Route::get('/updateVaccine/{vaccineno}', 'HOController@updateVaccine2');
+Route::get('/updateVaccine2', 'HOController@updateVaccine3');
+Route::post('/updateVaccine2', 'HOController@updateVaccine4');
 
-
+/* Routes for the functions for the Patiens  */
+Route::get('/viewNotifications', 'PatController@getviewNotifications');
+Route::get('/viewNotifications/{notification}', 'PatController@getviewNotifications2');
+Route::get('/viewNotifications2', 'PatController@getviewNotifications3');

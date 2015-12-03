@@ -5,8 +5,10 @@ use Illuminate\Http\Request;
 use App\Patient;
 use App\VaccRecord;
 use App\Campaign;
+use Carbon\Carbon;
 use App\Center;
 use App\Vaccine;
+use App\Event;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
@@ -57,12 +59,13 @@ class HOController extends Controller
     }
     public function postVaccine(Request $request)
     {
-
+        if ( $request->total_vials != null )
+            $value = $request->total_vials;
         $validator = Validator::make($request->all(),[
             'vaccine_name' => 'required',
             'inventory_name'=>'required',
             'total_vials'=> 'required|int', 
-            'available_vials'=>'required|int',
+            'available_vials'=>"required|int|between:0,$value",
             'manufacturer'=>'required',
             'mfg_date' => 'required|date',
             'exp_date'=>'required|date',
@@ -86,15 +89,17 @@ class HOController extends Controller
             $new->setMfgDate($vccn[6]);
             $new->vfc = $request->DropDownList2;
             $new->save();
+            
             return Redirect::to('/addVaccine');
          }
         
     }
     public function getAssignHa(){
         $empno = Session::get('user')->emp_no;
-        $temp = DB::select('select A.cc_no,B.* 
-            from campaigncenters as A,centers as B
+        $temp = DB::select('select A.cc_no,C.campaign_name,DATE_FORMAT(C.campaign_date, "%d-%m-%Y") as "campaign_date",B.* 
+            from campaigncenters as A,centers as B,campaigns as C
             where B.center_no = A.center_no
+            and A.campaign_no = C.campaign_no
             and ho_id = :somevariable',array('somevariable'=>$empno));
 
         return view('ho.assignHA')->withTemp($temp);
@@ -157,6 +162,77 @@ class HOController extends Controller
         Session::put('data2',$data2);
         return Redirect::to('/assignHA2'); 
     }
+    public function getAssignHa6(Request $request){
+        $data = Session::get('data2');
+        $cc = Session::get('cc');
+        var_dump($data[0]);
+        var_dump($cc);
 
-    
+        $temp2 = DB::table('events')->get();
+        if ( $temp2 != null )
+            DB::table('events')->
+            where('cc_no', '=', $cc)->delete();
+
+        foreach ($data[0] as $value) {
+            $new = new Event;
+            $new->cc_no = $cc;
+            $new->ha_no = $value->emp_no;
+            $new->save();
+        }
+        return Redirect::to('/'); 
+
+    }
+    public function updateVaccine(){
+        $temp = DB::select('select vaccine_no,vaccine_name,inventory_name,total_vials,
+        available_vials,manufacturer,DATE_FORMAT(mfg_date, "%d-%m-%Y") as "mfg_date",DATE_FORMAT(exp_date, "%d-%m-%Y") as "exp_date"
+        ,vfc from vaccines');
+        
+        return view('ho.updateVaccine')->withTemp($temp);
+    }
+    public function updateVaccine2($vaccineno){
+        $temp = DB::select('select vaccine_no,vaccine_name,inventory_name,total_vials,
+        available_vials,manufacturer,DATE_FORMAT(mfg_date, "%d/%m/%Y") as "mfg_date",DATE_FORMAT(exp_date, "%d/%m/%Y") as "exp_date"
+        ,vfc from vaccines where vaccine_no = :somevariable',array('somevariable'=>$vaccineno));
+        Session::put('vaccine',$temp);
+        return Redirect::to('/updateVaccine2');
+    }
+    public function updateVaccine3(){
+        $data2 = Session::get('vaccine');
+        $data = $data2[0];
+        return view('ho.updateVaccine2')->withData($data);
+    }
+    public function updateVaccine4(Request $request){
+        if ( $request->total_vials != null )
+            $value = $request->total_vials;
+        $validator = Validator::make($request->all(),[
+            'vaccine_name' => 'required',
+            'inventory_name'=>'required',
+            'total_vials'=> 'required|int', 
+            'available_vials'=>"required|int|between:0,$value",
+            'manufacturer'=>'required',
+            'mfg_date' => 'required|date',
+            'exp_date'=>'required|date',
+        ]);
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            return Redirect::to('/updateVaccine2')->withErrors($validator);
+         }
+         else{
+             $data2 = Session::get('vaccine');
+            $vaccineno = $data2[0]->vaccine_no;
+            $date1 = Carbon::createFromFormat('d/m/Y', $request->mfg_date);
+            $date2 = Carbon::createFromFormat('d/m/Y', $request->exp_date);
+           
+            $data = Session::get('vaccine');
+            $vaccineno = $data[0]->vaccine_no;
+            DB::select("update vaccines
+                set vaccine_name = '$request->vaccine_name' , inventory_name = '$request->inventory_name',
+                total_vials = $request->total_vials , available_vials = $request->available_vials,
+                manufacturer = '$request->manufacturer' , mfg_date = '$date1',
+                exp_date = '$date2' , vfc = '$request->DropDownList2'
+                where vaccine_no = $vaccineno");
+            return Redirect::to('/');
+
+        }
+    }
 }

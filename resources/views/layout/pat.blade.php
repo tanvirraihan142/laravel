@@ -18,7 +18,7 @@
     <!-- Custom CSS -->
 	
     <link href="{{ URL::asset('css/business-casual.css') }}" rel="stylesheet">
-
+    <link rel="stylesheet" href="{{ URL::asset('css/datepicker.css') }}">
     <!-- Fonts -->
     <link href="{{ URL::asset('css/fonts/font1.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('css/fonts/font2.css') }}" rel="stylesheet" type="text/css">
@@ -60,8 +60,8 @@
                     <li class="{{ (Request::is('/about') ? 'active' : '') }}">
                         <a href="{{ URL::to('profile') }}">Profile</a>
                     </li>
-                    <li>
-                        <a href="">View</br>Notifications</a>
+                    <li class="{{ (Request::is('/viewNotifications') ? 'active' : '') }}" >
+                        <a href="{{ URL::to('viewNotifications') }}"> View</br>Notifications</a>
                     </li>
                      <li class="{{ (Request::is('/logout') ? 'active' : '') }}">
                         <a href="{{ URL::to('logout') }}">Logout</a>
@@ -100,11 +100,22 @@
 
     <!-- jQuery -->
 	
-    <script src="{{ URL::asset('js/jquery.js') }}"></script>
+     <script src="{{ URL::asset('js/jquery.js') }}"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ URL::asset('js/bootstrap-datepicker.js') }}"></script>
 
+    <script type="text/javascript">
+            // When the document is ready
+            $(document).ready(function () {
+                
+                $('#example1').datepicker({
+                    format: "dd/mm/yyyy"
+                });  
+            
+            });
+        </script>
 </body>
 
 </html>

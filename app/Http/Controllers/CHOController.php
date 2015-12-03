@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Patient;
 use App\VaccRecord;
 use App\CampaignCenter;
@@ -18,11 +19,7 @@ use Session;
 
 class CHOController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function getCreateCampaign()
     {
         return view('cho.createCampaign');
@@ -178,10 +175,17 @@ class CHOController extends Controller
     }
     public function postCreateCampaign(Request $request)
     {
+        if ($request->campaign_date != null ){
+            $date1 = Carbon::createFromFormat('d/m/Y', $request->campaign_date);
+            $temp = DB::select('select * from campaigns where
+                campaign_date = :somevariable',array('somevariable'=>$date1));
+            if (count($temp))
+                return redirect('/createCampaign')->withErrors('There is already a campaign on that date');
+        }
         $validator = Validator::make($request->all(),[
             'campaign_name' => 'required',
             'vaccine_name'=>'required',
-            'campaign_date'=> 'required|date|unique:campaigns,campaign_date', 
+            'campaign_date'=> 'required|date', 
             'start_age'=>'required|int',
             'end_age'=>'required|int',
         
@@ -236,14 +240,17 @@ class CHOController extends Controller
         ]);
        if ($validator->fails()) {
             $messages = $validator->messages();
-            return Redirect::to('/createCampaign')->withErrors($validator);
+            return Redirect::to('/notify2')->withErrors($validator);
          }
         else{
+            $time2 = Carbon::now()->addHours(6)->toDateTimeString();
             $new = new Notification;
             $new->campaign_no = $campaign;
             $new->msg = $request->noti;
+            $new->msg_date = $time2;
             $new->save();
+            return Redirect::to('/');
         }
-        return Redirect::to('/');
+        
     }
 }

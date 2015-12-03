@@ -4,9 +4,12 @@
 
   <div class="col-lg-12 text-center">
               	<div class="col-lg-12 text-center">
-                
-                   
+             
                       <div class="row">
+                           <a href="{{ URL::to('editProfile') }}" class="btn btn-info">Edit Profile</a>
+                        <a href="{{ URL::to('changePassword') }}" class="btn btn-info">Change Password</a>
+                   
+                   
                           <div class="col-sm-6 col-md-4.5 col-md-offset-3">
                               <h2 class = "brand-name">
                                 <medium> Profile </medium>

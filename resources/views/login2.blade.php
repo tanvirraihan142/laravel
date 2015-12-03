@@ -7,7 +7,7 @@
                    <div class="container">
                       <div class="row">
                           <div class="col-sm-6 col-md-4 col-md-offset-4">
-                              <h3 class="text-center login-title">Sign in to continue to IMS</h3>
+                              <h3 class="text-center login-title">Sign in to continue to IMS (employees only)</h3>
                               <div class="account-wall">
                                   
 
@@ -21,7 +21,7 @@
         @endif
 
                                   
-                                  <form action="/login" method="POST" class="form-signin">
+                                  <form action="/login2" method="POST" class="form-signin">
                                   {!! csrf_field() !!}                                 
                                   <input type="text" name="id" class="form-control" placeholder="ID"  required autofocus>
 								  <p></p>
@@ -37,7 +37,7 @@
                               <a href="{{ URL::to('signup') }}" class="text-center new-account">Create an account</a>
                              <p>
                              </p>
-                            <a href="{{ URL::to('login2') }}" class="text-center new-account">Login as an employee </a>
+                            <a href="{{ URL::to('login') }}" class="text-center new-account">Login as a patient </a>
                           </div>
                       </div>
                     </div>

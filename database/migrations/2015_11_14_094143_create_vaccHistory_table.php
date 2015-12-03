@@ -30,6 +30,6 @@ class CreateVaccHistoryTable extends Migration
      */
     public function down()
     {
-        Schema::drop('vacc_record');
+       Schema::drop('vacc_record');
     }
 }
