@@ -12,15 +12,39 @@ use Auth;
 use Validator, Input, Redirect;
 use Session;
 
+/**
+* handles the patient's part that includes viewing notifications. 
+* 
+* 
+*
+*/
 class PatController extends Controller
 {
+    /**
+     * loads the first page of viewing notifications.In here many notification's campaign
+     * name is shown.User has to select one of the notifications to see the details of the 
+     * notification
+     *
+     * @return view page of the view notification's first page 
+     */
+
     public function getviewNotifications()
     {
         $temp = DB::select('SELECT noti_no, ( select campaign_name 
         from campaigns where campaign_no = A.campaign_no ) as "campaign_name", DATE_FORMAT(msg_date, "%d-%m-%Y %h-%i-%s %p") 
         as msg_date FROM notifications as A order by msg_date');
+
         return view('pat.viewNotify')->withTemp($temp);
     }
+    /**
+     * takes the notification number and sends the details of the notification to the next page
+     * the details of notification is saved in the session for the 2nd page to reacquire it and
+     * show it at the view.
+     *
+     * @param  notfication no.
+     * @return redirect to the 2nd page 
+     */
+
     public function getviewNotifications2($notification)
     {
         $campaign = DB::select('select campaign_no from notifications
@@ -40,10 +64,16 @@ class PatController extends Controller
         Session::put('notify',$data);
         return Redirect::to('viewNotifications2');
     }
+    /**
+     * loads the 2nd page of view notification where details of the notification is 
+     * shown.the data is reacquired from the view and sent to view page.
+     *   
+     * @return view of 2nd page of view notification
+     */
+
     public function getviewNotifications3()
     {
         $data = Session::get('notify');
-        //var_dump($data);
         return view('pat.viewNotify2')->withData($data);
     }
 }

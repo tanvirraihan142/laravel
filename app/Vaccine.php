@@ -4,6 +4,11 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+* Model class for database table vaccines that works as a vaccine inventory.
+*/
+
+
 class Vaccine extends Model
 {
    	public $timestamps = false;

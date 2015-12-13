@@ -2,8 +2,13 @@
 
 namespace App;
 use Carbon\Carbon;
-
 use Illuminate\Database\Eloquent\Model;
+
+/**
+* Model class for database table vacchistory that works as vaccination history for patients 
+*/
+
+
 
 class VaccRecord extends Model
 {

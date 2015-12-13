@@ -4,6 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+* Model class for database table centers.
+*/
 class Center extends Model
 {
     //
